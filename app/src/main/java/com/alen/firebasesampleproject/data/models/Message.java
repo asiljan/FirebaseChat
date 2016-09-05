@@ -1,4 +1,4 @@
-package com.alen.firebasesampleproject;
+package com.alen.firebasesampleproject.data.models;
 
 /**
  * Created by alensiljan on 30/08/16.

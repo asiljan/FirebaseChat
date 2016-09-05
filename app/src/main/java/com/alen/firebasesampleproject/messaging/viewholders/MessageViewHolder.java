@@ -1,11 +1,12 @@
-package com.alen.firebasesampleproject;
+package com.alen.firebasesampleproject.messaging.viewholders;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alen.firebasesampleproject.R;
+import com.alen.firebasesampleproject.data.models.Message;
 import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
@@ -15,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by alensiljan on 30/08/16.
  */
-public class MessageViewHolder extends RecyclerView.ViewHolder {
+public class MessageViewHolder extends BaseViewHolder {
 
     @BindView(R.id.messengerText)
     TextView messageTextView;
@@ -29,7 +30,8 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         ButterKnife.bind(this, itemView);
     }
 
-    public void populateData(Message message, Context context) {
+    @Override
+    public void bindData(Message message, Context context) {
         messageTextView.setText(message.getText());
         messageNameTextView.setText(message.getName());
         if (message.getPhotoUrl() == null) {

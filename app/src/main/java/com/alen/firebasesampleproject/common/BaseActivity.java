@@ -1,4 +1,4 @@
-package com.alen.firebasesampleproject;
+package com.alen.firebasesampleproject.common;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,10 +12,13 @@ import com.google.firebase.auth.FirebaseAuth;
 public class BaseActivity extends AppCompatActivity {
 
     protected FirebaseAuth mFirebaseAuth;
+    protected Application mApplication;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mApplication = (Application) getApplication();
     }
 
     protected void firebaseAuthInitialization() {

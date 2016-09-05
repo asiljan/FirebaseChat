@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.alen.firebasesampleproject.common.BaseActivity;
+import com.alen.firebasesampleproject.common.helpers.LogHelper;
+import com.alen.firebasesampleproject.navigation.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -21,22 +24,26 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by alensiljan on 30/08/16.
  */
 public class SignInActivity extends BaseActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
-    private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
 
+    @BindView(R.id.sign_in_button)
+    SignInButton mSignInButton;
     private GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        ButterKnife.bind(this);
 
-        SignInButton mSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
         mSignInButton.setOnClickListener(this);
 
         configureGoogleSignIn();
@@ -71,7 +78,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(this, "Google Play Services error", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.google_play_service_error), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -83,10 +90,10 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
-                firebaseAuthWithGoogle(account.getIdToken()); //implement method
+                firebaseAuthWithGoogle(account.getIdToken());
             } else {
                 // Google Sign In failed
-                Log.e(TAG, "Google Sign In failed.");
+                LogHelper.printLogMsg("Google Sign In failed.");
             }
         }
     }
@@ -97,13 +104,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
+                        LogHelper.printLogMsg("signInWithCredential:onComplete:" + task.isSuccessful());
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
-                            Toast.makeText(SignInActivity.this, "Authentication failed.",
+                            Toast.makeText(SignInActivity.this, getString(R.string.authentication_failed_text),
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             startActivity(new Intent(SignInActivity.this, MainActivity.class));

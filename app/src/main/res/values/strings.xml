@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">FirebaseSampleProject</string>
-    <string name="sign_in">Sign In with Google</string>
+    <string name="sign_in">Sign In</string>
+
+    <string name="authentication_failed_text">Authentication failed.</string>
+    <string name="push_not_available">Your PUSH notifications won\'t work.</string>
+    <string name="google_play_service_error">Google Play Services error</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="send_invitation">Send Invitation</string>
+
+    <string name="invitation_title">FCM invite</string>
+    <string name="invitation_msg">Please join me for a friendly chat.</string>
+    <string name="invitation_cta">Call to action</string>
 </resources>
