@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.alen.firebasesampleproject.R;
 import com.alen.firebasesampleproject.common.enums.MessageViewType;
 import com.alen.firebasesampleproject.data.models.Message;
+import com.alen.firebasesampleproject.messaging.viewholders.BaseViewHolder;
 import com.alen.firebasesampleproject.messaging.viewholders.MessageOwnerViewHolder;
 import com.alen.firebasesampleproject.messaging.viewholders.MessageViewHolder;
 
@@ -47,11 +48,11 @@ public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.
 
         switch (messageWrapper.messageViewType) {
             case MESSAGE:
-                MessageViewHolder messageViewHolder = (MessageViewHolder) holder;
+                BaseViewHolder messageViewHolder = (MessageViewHolder) holder;
                 messageViewHolder.bindData(messageWrapperList.get(position).message, context);
                 break;
             case MESSAGE_OWNER:
-                MessageOwnerViewHolder messageOwnerViewHolder = (MessageOwnerViewHolder) holder;
+                BaseViewHolder messageOwnerViewHolder = (MessageOwnerViewHolder) holder;
                 messageOwnerViewHolder.bindData(messageWrapperList.get(position).message, context);
                 break;
         }
