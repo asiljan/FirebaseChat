@@ -35,6 +35,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -53,19 +55,21 @@ public class MessageFragment extends Fragment {
     @BindView(R.id.messageRecycleList)
     RecyclerView mRecyclerView;
 
-    private SharedPreferences mSharedPreferences;
     private LinearLayoutManager llManager;
     private DatabaseReference mDatabaseReference;
     private UserProfile userProfile;
     private UserModel userModel;
-    private Application application;
     private MessageBehavior messageBehaviorCallback;
     private MyFirebaseMessageAdapter messageAdapter;
+
+    @Inject
+    Application application;
+    @Inject
+    SharedPreferences mSharedPreferences;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
 
     @Nullable
@@ -74,7 +78,6 @@ public class MessageFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_message, container, false);
         ButterKnife.bind(this, view);
-        initUI();
 
         return view;
     }
@@ -83,9 +86,11 @@ public class MessageFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        application = (Application) getActivity().getApplication();
+        Application.getAppComponent(getContext()).inject(this);
         userProfile = application.getUserProfile();
         userModel = application.getUserModel();
+
+        initUI();
     }
 
     @Override

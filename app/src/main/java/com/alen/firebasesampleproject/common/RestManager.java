@@ -6,9 +6,12 @@ import com.alen.firebasesampleproject.data.api.RetrofitBuilder;
 import com.alen.firebasesampleproject.data.events.UserCredentialEvent;
 import com.alen.firebasesampleproject.data.models.UserModel;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * Created by alensiljan on 01/09/16.
@@ -16,9 +19,14 @@ import retrofit2.Response;
 public class RestManager {
 
     private static final int RESPONSE_CODE_OK = 200;
+    private ApiService apiService;
 
-    public static void sendUserCredentials(UserModel mUserModel) {
-        ApiService apiService = RetrofitBuilder.getApiService();
+    @Inject
+    public RestManager(ApiService apiService) {
+        this.apiService = apiService;
+    }
+
+    public void sendUserCredentials(UserModel mUserModel) {
         Call<Object> call = apiService.sendUserCredentials(mUserModel);
 
         call.enqueue(new Callback<Object>() {

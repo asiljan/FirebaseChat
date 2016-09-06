@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 
 import com.alen.firebasesampleproject.R;
 import com.alen.firebasesampleproject.SignInActivity;
+import com.alen.firebasesampleproject.common.Application;
 import com.alen.firebasesampleproject.common.BaseActivity;
 import com.alen.firebasesampleproject.common.EventBus;
 import com.alen.firebasesampleproject.common.RestManager;
@@ -31,6 +32,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.greenrobot.eventbus.Subscribe;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -42,6 +45,12 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     private static int HOLDER_VIEW_ID = R.id.message_fragment;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+
+    @Inject
+    Application mApplication;
+    @Inject
+    RestManager restManager;
+
     private MessageFragment messageFragment;
     private GoogleApiClient mGoogleApiClient;
     private String mPhotoUrl;
@@ -53,6 +62,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        Application.getApiServiceComponent(this).inject(this);
 
         mUsername = ANONYMOUS;
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -82,7 +93,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     }
 
     private void sendUserCredentials() {
-        RestManager.sendUserCredentials(mUserModel);
+        restManager.sendUserCredentials(mUserModel);
     }
 
     private void initFirebaseAuth() {
