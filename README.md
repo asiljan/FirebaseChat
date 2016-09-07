@@ -14,7 +14,7 @@ Sign in screen             |  Chat screen
 
 * Clone or download project as .zip
 * Open project in Android Studio
-* Change local server address inside your `app/build.gradle` file
+* Change local server address inside your `app/build.gradle` file (otherwise, Push notifications will not work)
 * Run
 
 **app/build.gradle**
