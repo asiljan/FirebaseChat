@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.alen.firebasesampleproject.common.Application;
+import com.alen.firebasesampleproject.data.api.ApiService;
 
 import javax.inject.Singleton;
 
@@ -36,14 +37,15 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit() {
+    ApiService provideApiService() {
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
                 .client(provideOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        return retrofit;
+        return retrofit.create(ApiService.class);
     }
 
     @Provides

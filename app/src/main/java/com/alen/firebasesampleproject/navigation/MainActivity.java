@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Application.getApiServiceComponent(this).inject(this);
+        ((Application) getApplication()).getAppComponent().inject(this);
 
         mUsername = ANONYMOUS;
         mGoogleApiClient = new GoogleApiClient.Builder(this)

@@ -19,7 +19,8 @@ import retrofit2.Retrofit;
 public class RestManager {
 
     private static final int RESPONSE_CODE_OK = 200;
-    private ApiService apiService;
+
+    ApiService apiService;
 
     @Inject
     public RestManager(ApiService apiService) {
