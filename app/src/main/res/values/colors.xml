@@ -6,4 +6,6 @@
 
     <color name="message_chat_background">#f0f0f0</color>
     <color name="white">#ffffff</color>
+
+    <color name="message_hint">#E5E5E5</color>
 </resources>

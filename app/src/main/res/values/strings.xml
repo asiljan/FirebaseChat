@@ -12,5 +12,9 @@
     <string name="invitation_msg">Please join me for a friendly chat.</string>
     <string name="invitation_cta">Call to action</string>
 
+    <string name="send_message_hint">Send message</string>
     <string name="new_message_text">New Messages</string>
+
+    <string name="message_time_delivered_now">Just now</string>
+    <string name="message_time_delivered">min ago</string>
 </resources>
