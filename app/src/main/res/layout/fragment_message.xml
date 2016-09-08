@@ -25,7 +25,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            android:textColorHint="@color/message_hint"
+            android:hint="@string/send_message_hint"/>
 
 
         <ImageButton

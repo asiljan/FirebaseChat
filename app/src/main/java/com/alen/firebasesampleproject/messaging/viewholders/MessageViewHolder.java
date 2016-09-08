@@ -51,7 +51,7 @@ public class MessageViewHolder extends BaseViewHolder {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Show info text", Toast.LENGTH_SHORT).show();
+                //TODO notify MessageFragment and show UserChatInfoProfile fragment
             }
         });
     }
