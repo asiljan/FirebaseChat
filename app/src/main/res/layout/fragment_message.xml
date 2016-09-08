@@ -42,4 +42,16 @@
 
     </LinearLayout>
 
+    <com.alen.firebasesampleproject.messaging.views.NewMessageButtonView
+        xmlns:btnMsg="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/newMessageBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        btnMsg:buttonBackground="@color/colorPrimary"
+        btnMsg:buttonText="@string/new_message_text"
+        btnMsg:buttonTextColor="@color/white" />
+
 </RelativeLayout>

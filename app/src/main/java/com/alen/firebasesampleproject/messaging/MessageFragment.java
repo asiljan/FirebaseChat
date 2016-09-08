@@ -7,9 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +23,7 @@ import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
 import com.alen.firebasesampleproject.messaging.adapters.MyFirebaseMessageAdapter;
 import com.alen.firebasesampleproject.messaging.interfaces.MessageBehavior;
+import com.alen.firebasesampleproject.messaging.views.NewMessageButtonView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +52,8 @@ public class MessageFragment extends Fragment {
     EditText messageBox;
     @BindView(R.id.messageRecycleList)
     RecyclerView mRecyclerView;
+    @BindView(R.id.newMessageBtn)
+    NewMessageButtonView newMessageButtonView;
 
     private LinearLayoutManager llManager;
     private DatabaseReference mDatabaseReference;
@@ -107,19 +108,6 @@ public class MessageFragment extends Fragment {
     private void initUI() {
         messageBox.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mSharedPreferences
                 .getInt(FirebasePreferences.FRIENDLY_MSG_LENGTH, DEFAULT_MSG_LENGTH_LIMIT))});
-        messageBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });
 
         //init recyclerView
         llManager = new LinearLayoutManager(getContext());
@@ -139,6 +127,25 @@ public class MessageFragment extends Fragment {
                             messageBox.getText().toString());
 
                     messageBox.setText("");
+                }
+            }
+        });
+
+        newMessageButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+                toggleNewMessageButtonVisibility(false);
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (llManager.findLastCompletelyVisibleItemPosition() == messageAdapter.getItemCount() - 1 &&
+                        isNewMessageButtonVisible()) {
+                    toggleNewMessageButtonVisibility(false);
                 }
             }
         });
@@ -179,11 +186,26 @@ public class MessageFragment extends Fragment {
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition + 1 == (positionStart - 1))) {
                     mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView, null, positionStart);
+                } else {
+                    //show new messageButton
+                    toggleNewMessageButtonVisibility(true);
                 }
             }
         });
 
         mRecyclerView.setLayoutManager(llManager);
         mRecyclerView.setAdapter(messageAdapter);
+    }
+
+    private boolean isNewMessageButtonVisible() {
+        return newMessageButtonView.isShown();
+    }
+
+    private void toggleNewMessageButtonVisibility(boolean show) {
+        if (show) {
+            newMessageButtonView.setVisibility(View.VISIBLE);
+        } else {
+            newMessageButtonView.setVisibility(View.GONE);
+        }
     }
 }

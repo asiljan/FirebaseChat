@@ -11,4 +11,6 @@
     <string name="invitation_title">FCM invite</string>
     <string name="invitation_msg">Please join me for a friendly chat.</string>
     <string name="invitation_cta">Call to action</string>
+
+    <string name="new_message_text">New Messages</string>
 </resources>
