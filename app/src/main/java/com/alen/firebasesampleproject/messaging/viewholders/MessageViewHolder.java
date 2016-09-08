@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alen.firebasesampleproject.R;
+import com.alen.firebasesampleproject.common.util.TimeHelper;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.bumptech.glide.Glide;
 
@@ -31,9 +33,10 @@ public class MessageViewHolder extends BaseViewHolder {
     }
 
     @Override
-    public void bindData(Message message, Context context) {
+    public void bindData(Message message, final Context context) {
         messageTextView.setText(message.getText());
-        messageNameTextView.setText(message.getName());
+        messageNameTextView.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
+
         if (message.getPhotoUrl() == null) {
             circleImageView
                     .setImageDrawable(ContextCompat
@@ -44,5 +47,12 @@ public class MessageViewHolder extends BaseViewHolder {
                     .load(message.getPhotoUrl())
                     .into(circleImageView);
         }
+
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Show info text", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

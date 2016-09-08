@@ -7,7 +7,7 @@
         android:id="@+id/messageRecycleList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/app_small_margins"
+        android:layout_marginBottom="@dimen/app_xsmall_margins"
         android:layout_above="@+id/linearLayout"/>
 
     <LinearLayout
@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:enabled="false"
-            android:padding="@dimen/app_medium_margins"
-            android:layout_marginLeft="@dimen/app_small_margins"
-            android:layout_marginStart="@dimen/app_small_margins"
+            android:padding="@dimen/app_small_margins"
+            android:layout_marginLeft="@dimen/app_xsmall_margins"
+            android:layout_marginStart="@dimen/app_xsmall_margins"
             android:background="@drawable/btn_send_drawable"
             android:src="@drawable/icon_send_msg"/>
 

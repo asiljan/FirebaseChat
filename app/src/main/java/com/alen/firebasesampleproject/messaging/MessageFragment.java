@@ -120,7 +120,7 @@ public class MessageFragment extends Fragment {
             public void onClick(View v) {
                 if (messageBox.getText().toString().trim().length() > 0) {
                     Message message = new Message(messageBox.getText().toString(),
-                            userProfile.getUserName(), userProfile.getPhotoUrl());
+                            userProfile.getUserName(), userProfile.getPhotoUrl(), System.currentTimeMillis());
                     mDatabaseReference.child(MESSAGES_CHILD).push().setValue(message);
 
                     FCMHelper.sendNotificationToUser(userModel.getUser(), userProfile.getUserName(),

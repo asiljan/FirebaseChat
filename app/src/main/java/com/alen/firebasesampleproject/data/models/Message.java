@@ -5,6 +5,7 @@ package com.alen.firebasesampleproject.data.models;
  */
 public class Message {
 
+    private long createdAt;
     private String text;
     private String name;
     private String photoUrl;
@@ -12,10 +13,19 @@ public class Message {
     public Message() {
     }
 
-    public Message(String text, String name, String photoUrl) {
+    public Message(String text, String name, String photoUrl, long createdAt) {
+        this.createdAt = createdAt;
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
+    }
+
+    public Long getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getText() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alen.firebasesampleproject.common.util.TimeHelper;
 import com.alen.firebasesampleproject.data.models.Message;
 
 /**
@@ -16,4 +17,10 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
     }
 
     public abstract void bindData(Message message, Context context);
+
+    protected String buildTimeMessage(String name, long time) {
+        StringBuilder strBuilder = new StringBuilder(name);
+        strBuilder.append(",").append(" ").append(TimeHelper.getMessageSentTime(time));
+        return strBuilder.toString();
+    }
 }

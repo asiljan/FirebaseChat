@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center"
-    android:padding="@dimen/app_small_margins"
+    android:padding="@dimen/app_xsmall_margins"
     android:background="@color/colorPrimaryDark">
 
     <TextView

@@ -8,8 +8,9 @@
     <dimen name="app_large_text_size">24sp</dimen>
     <dimen name="app_xlarge_text_size">30sp</dimen>
 
-    <dimen name="app_small_margins">6dp</dimen>
-    <dimen name="app_medium_margins">12dp</dimen>
+    <dimen name="app_xsmall_margins">6dp</dimen>
+    <dimen name="app_small_margins">12dp</dimen>
+    <dimen name="app_medium_margins">16dp</dimen>
     <dimen name="app_large_margins">20dp</dimen>
     <dimen name="app_xlarge_margins">40dp</dimen>
     <dimen name="app_xxlarge_margins">52dp</dimen>

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/app_small_margins">
+    android:padding="@dimen/app_xsmall_margins">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/messengerImageView"
@@ -20,20 +20,20 @@
         android:layout_marginLeft="@dimen/app_medium_margins">
 
         <TextView
-            android:id="@+id/messengerName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Name msg"/>
-
-        <TextView
             android:id="@+id/messengerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/app_medium_text_size"
             android:text="How are you"/>
+
+        <TextView
+            android:id="@+id/messengerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textSize="@dimen/app_small_text_size"
+            android:text="Alen Siljan, 11min"/>
 
     </LinearLayout>
 

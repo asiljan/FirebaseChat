@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alen.firebasesampleproject.R;
+import com.alen.firebasesampleproject.common.util.TimeHelper;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.bumptech.glide.Glide;
 
@@ -20,6 +21,8 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
 
     @BindView(R.id.messengerOwnerText)
     TextView messageText;
+    @BindView(R.id.messengerOwnerTime)
+    TextView messageDeliverTime;
     @BindView(R.id.messengerOwnerImageView)
     CircleImageView circleImageView;
 
@@ -32,6 +35,8 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
     public void bindData(Message message, Context context) {
         //implement own logic for binding
         messageText.setText(message.getText());
+        messageDeliverTime.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
+
         if (message.getPhotoUrl() == null) {
             circleImageView
                     .setImageDrawable(ContextCompat

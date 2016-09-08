@@ -2,20 +2,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/app_small_margins">
+    android:padding="@dimen/app_xsmall_margins">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/message_background_shape"
-        android:padding="@dimen/app_small_margins"
+        android:padding="@dimen/app_xsmall_margins"
         android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/messengerOwnerImageView"
         android:layout_toStartOf="@+id/messengerOwnerImageView"
-        android:layout_marginRight="@dimen/app_medium_margins"
-        android:layout_marginEnd="@dimen/app_medium_margins"
+        android:layout_marginRight="@dimen/app_small_margins"
+        android:layout_marginEnd="@dimen/app_small_margins"
         android:layout_marginStart="@dimen/app_xxlarge_margins"
         android:layout_marginLeft="@dimen/app_xxlarge_margins">
 
@@ -23,8 +23,16 @@
             android:id="@+id/messengerOwnerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="@dimen/app_medium_text_size"
             android:text="How are you"/>
+
+        <TextView
+            android:id="@+id/messengerOwnerTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:textSize="@dimen/app_small_text_size"
+            android:text="You, 11min"/>
 
     </LinearLayout>
 
