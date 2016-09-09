@@ -16,5 +16,7 @@
     <string name="new_message_text">New Messages</string>
 
     <string name="message_time_delivered_now">Just now</string>
-    <string name="message_time_delivered">min ago</string>
+    <string name="message_time_delivered">" min ago"</string>
+    <string name="message_time_hours">HH:mm</string>
+    <string name="message_time_days">dd:MM:yy:HH:mm</string>
 </resources>
