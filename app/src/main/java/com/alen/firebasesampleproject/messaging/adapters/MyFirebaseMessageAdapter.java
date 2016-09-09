@@ -58,13 +58,17 @@ public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.
         }
     }
 
-    public void updateMessageList(List<Message> messages, String ownerUsername) {
+    public void updateMessageList(List<Message> messages, String ownerUid) {
         messageWrapperList.clear();
-        for (Message m : messages) {
-            messageWrapperList.add(new MessageWrapper(m, ownerUsername.equals(m.getName())));
+        if (messages.size() > 0) {
+            for (Message m : messages) {
+                messageWrapperList.add(new MessageWrapper(m, ownerUid.equals(m.getUid())));
+            }
+            notifyItemInserted(getItemCount());
+        } else {
+            notifyDataSetChanged();
         }
 
-        notifyItemInserted(getItemCount());
     }
 
     @Override
@@ -82,7 +86,7 @@ public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
     public Message getLastSentMessage() {
-        return messageWrapperList.get(getItemCount()-1).message;
+        return messageWrapperList.get(getItemCount() - 1).message;
     }
 
     class MessageWrapper {

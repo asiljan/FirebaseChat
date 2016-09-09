@@ -9,15 +9,17 @@ public class Message {
     private String text;
     private String name;
     private String photoUrl;
+    private String uid;
 
     public Message() {
     }
 
-    public Message(String text, String name, String photoUrl, long createdAt) {
+    public Message(String text, String name, String photoUrl, long createdAt, String uid) {
         this.createdAt = createdAt;
         this.text = text;
         this.name = name;
         this.photoUrl = photoUrl;
+        this.uid = uid;
     }
 
     public Long getCreatedAt() {
@@ -50,5 +52,9 @@ public class Message {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public String getUid() {
+        return uid;
     }
 }
