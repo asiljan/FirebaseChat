@@ -7,7 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alen.firebasesampleproject.R;
+import com.alen.firebasesampleproject.common.EventBus;
 import com.alen.firebasesampleproject.common.util.TimeHelper;
+import com.alen.firebasesampleproject.data.events.UserAccountInfoEvent;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.bumptech.glide.Glide;
 
@@ -33,7 +35,7 @@ public class MessageViewHolder extends BaseViewHolder {
     }
 
     @Override
-    public void bindData(Message message, final Context context) {
+    public void bindData(final Message message, final Context context) {
         mContext = context;
         messageTextView.setText(message.getText());
         messageNameTextView.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
@@ -52,6 +54,7 @@ public class MessageViewHolder extends BaseViewHolder {
         circleImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EventBus.getDefaultInstance().post(new UserAccountInfoEvent(message));
                 //TODO notify MessageFragment and show UserChatInfoProfile fragment
             }
         });

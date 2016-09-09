@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
@@ -16,19 +17,25 @@ import android.widget.ImageButton;
 
 import com.alen.firebasesampleproject.R;
 import com.alen.firebasesampleproject.common.Application;
+import com.alen.firebasesampleproject.common.EventBus;
 import com.alen.firebasesampleproject.common.helpers.FCMHelper;
+import com.alen.firebasesampleproject.common.helpers.LogHelper;
 import com.alen.firebasesampleproject.common.prefs.FirebasePreferences;
+import com.alen.firebasesampleproject.data.events.UserAccountInfoEvent;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
 import com.alen.firebasesampleproject.messaging.adapters.MyFirebaseMessageAdapter;
 import com.alen.firebasesampleproject.messaging.interfaces.MessageBehavior;
 import com.alen.firebasesampleproject.messaging.views.NewMessageButtonView;
+import com.alen.firebasesampleproject.userprofiledetails.UserAccountDetailsFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,6 +103,18 @@ public class MessageFragment extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefaultInstance().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefaultInstance().unregister(this);
+        super.onStop();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
@@ -121,7 +140,8 @@ public class MessageFragment extends Fragment {
             public void onClick(View v) {
                 if (messageBox.getText().toString().trim().length() > 0) {
                     Message message = new Message(messageBox.getText().toString(),
-                            userProfile.getUserName(), userProfile.getPhotoUrl(), System.currentTimeMillis());
+                            userProfile.getUserName(), userProfile.getPhotoUrl(), System.currentTimeMillis(),
+                            userModel.getUser());
                     mDatabaseReference.child(MESSAGES_CHILD).push().setValue(message);
 
                     FCMHelper.sendNotificationToUser(userModel.getUser(), userProfile.getUserName(),
@@ -166,7 +186,7 @@ public class MessageFragment extends Fragment {
                 }
 
                 messageBehaviorCallback.onFirebaseDbDataReady();
-                messageAdapter.updateMessageList(snapshotData, userProfile.getUserName());
+                messageAdapter.updateMessageList(snapshotData, userModel.getUser());
             }
 
             @Override
@@ -181,17 +201,20 @@ public class MessageFragment extends Fragment {
                 super.onItemRangeInserted(positionStart, itemCount);
 
                 int friendlyMessageCount = messageAdapter.getItemCount();
-                int lastVisiblePosition =
-                        llManager.findLastCompletelyVisibleItemPosition();
-                if (lastVisiblePosition == -1 ||
-                        (positionStart >= (friendlyMessageCount - 1) &&
-                                lastVisiblePosition + 1 == (positionStart - 1))) {
-                    mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView, null, positionStart);
-                } else if (userProfile.getUserName().equals(messageAdapter.getLastSentMessage().getName())) {
-                    mRecyclerView.smoothScrollToPosition(friendlyMessageCount-1);
-                } else {
-                    //show new messageButton
-                    toggleNewMessageButtonVisibility(true);
+
+                if (friendlyMessageCount > 0) {
+                    int lastVisiblePosition =
+                            llManager.findLastCompletelyVisibleItemPosition();
+                    if (lastVisiblePosition == -1 ||
+                            (positionStart >= (friendlyMessageCount - 1) &&
+                                    lastVisiblePosition + 1 == (positionStart - 1))) {
+                        mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView, null, positionStart);
+                    } else if (userProfile.getUserName().equals(messageAdapter.getLastSentMessage().getName())) {
+                        mRecyclerView.smoothScrollToPosition(friendlyMessageCount - 1);
+                    } else {
+                        //show new messageButton
+                        toggleNewMessageButtonVisibility(true);
+                    }
                 }
             }
         });
@@ -210,5 +233,22 @@ public class MessageFragment extends Fragment {
         } else {
             newMessageButtonView.setVisibility(View.GONE);
         }
+    }
+
+    @Subscribe
+    public void onUserAccountInfoEvent(UserAccountInfoEvent accountInfoEvent) {
+        showUserAccountDetailsDialog(accountInfoEvent.getMessage());
+    }
+
+    private void showUserAccountDetailsDialog(Message message) {
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(UserAccountDetailsFragment.TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+
+        ft.addToBackStack(null);
+        UserAccountDetailsFragment accountDetailsFragment = UserAccountDetailsFragment.newInstance(message);
+        accountDetailsFragment.show(ft, UserAccountDetailsFragment.TAG);
     }
 }
