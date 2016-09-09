@@ -4,9 +4,9 @@ A simple mobile chat implemented using Firebase. Project was developed in Androi
 
 ## Screenshots
 
-Sign in screen             |  Chat screen
-:-------------------------:|:-------------------------:
-![Sign in screen](https://github.com/asiljan/FirebaseChat/blob/master/screenshots/sign_in.png?raw=true)  |  ![Chat screen](https://github.com/asiljan/FirebaseChat/blob/master/screenshots/chat.png?raw=true)
+Sign in screen             |  Chat screen              
+:-------------------------:|:-------------------------:|
+![Sign in screen](https://github.com/asiljan/FirebaseChat/blob/master/screenshots/sign_in.png?raw=true) | ![Chat screen](https://github.com/asiljan/FirebaseChat/blob/master/screenshots/chat_new_msg.png?raw=true) |
 
 ## Installation
 
