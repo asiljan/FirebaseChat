@@ -9,6 +9,7 @@ import com.alen.firebasesampleproject.R;
 import com.alen.firebasesampleproject.common.util.TimeHelper;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +33,7 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
     }
 
     @Override
-    public void bindData(Message message, Context context) {
+    public void bindData(Message message, Context context, RequestManager glide) {
         //implement own logic for binding
         mContext = context;
         messageText.setText(message.getText());
@@ -44,7 +45,7 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
                             .getDrawable(context,
                                     R.drawable.ic_account_circle_black_36dp));
         } else {
-            Glide.with(context)
+            glide
                     .load(message.getPhotoUrl())
                     .into(circleImageView);
         }

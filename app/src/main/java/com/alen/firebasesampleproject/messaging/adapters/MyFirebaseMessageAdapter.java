@@ -12,6 +12,7 @@ import com.alen.firebasesampleproject.data.models.Message;
 import com.alen.firebasesampleproject.messaging.viewholders.BaseViewHolder;
 import com.alen.firebasesampleproject.messaging.viewholders.MessageOwnerViewHolder;
 import com.alen.firebasesampleproject.messaging.viewholders.MessageViewHolder;
+import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +24,11 @@ public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.
 
     private List<MessageWrapper> messageWrapperList;
     private Context context;
+    private RequestManager rmGlide;
 
-    public MyFirebaseMessageAdapter(Context context) {
+    public MyFirebaseMessageAdapter(Context context, RequestManager rmGlide) {
         this.context = context;
+        this.rmGlide = rmGlide;
         messageWrapperList = new ArrayList<>();
     }
 
@@ -49,11 +52,11 @@ public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.
         switch (messageWrapper.messageViewType) {
             case MESSAGE:
                 BaseViewHolder messageViewHolder = (MessageViewHolder) holder;
-                messageViewHolder.bindData(messageWrapperList.get(position).message, context);
+                messageViewHolder.bindData(messageWrapperList.get(position).message, context, rmGlide);
                 break;
             case MESSAGE_OWNER:
                 BaseViewHolder messageOwnerViewHolder = (MessageOwnerViewHolder) holder;
-                messageOwnerViewHolder.bindData(messageWrapperList.get(position).message, context);
+                messageOwnerViewHolder.bindData(messageWrapperList.get(position).message, context, rmGlide);
                 break;
         }
     }

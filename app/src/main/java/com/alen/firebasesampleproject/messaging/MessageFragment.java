@@ -29,6 +29,7 @@ import com.alen.firebasesampleproject.messaging.adapters.MyFirebaseMessageAdapte
 import com.alen.firebasesampleproject.messaging.interfaces.MessageBehavior;
 import com.alen.firebasesampleproject.messaging.views.NewMessageButtonView;
 import com.alen.firebasesampleproject.userprofiledetails.UserAccountDetailsFragment;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -173,7 +174,7 @@ public class MessageFragment extends Fragment {
     }
 
     private void initFirebaseDB() {
-        messageAdapter = new MyFirebaseMessageAdapter(getContext());
+        messageAdapter = new MyFirebaseMessageAdapter(getActivity(), Glide.with(getActivity()));
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mDatabaseReference.child(MESSAGES_CHILD).addValueEventListener(new ValueEventListener() {

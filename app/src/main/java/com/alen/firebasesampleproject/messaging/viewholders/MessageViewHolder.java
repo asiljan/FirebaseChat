@@ -12,6 +12,7 @@ import com.alen.firebasesampleproject.common.util.TimeHelper;
 import com.alen.firebasesampleproject.data.events.UserAccountInfoEvent;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +36,7 @@ public class MessageViewHolder extends BaseViewHolder {
     }
 
     @Override
-    public void bindData(final Message message, final Context context) {
+    public void bindData(final Message message, final Context context, RequestManager glide) {
         mContext = context;
         messageTextView.setText(message.getText());
         messageNameTextView.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
@@ -46,7 +47,7 @@ public class MessageViewHolder extends BaseViewHolder {
                             .getDrawable(context,
                                     R.drawable.ic_account_circle_black_36dp));
         } else {
-            Glide.with(context)
+            glide
                     .load(message.getPhotoUrl())
                     .into(circleImageView);
         }
