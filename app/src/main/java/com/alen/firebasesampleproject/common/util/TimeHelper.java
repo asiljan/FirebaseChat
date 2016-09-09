@@ -1,6 +1,7 @@
 package com.alen.firebasesampleproject.common.util;
 
 import android.content.Context;
+import android.text.format.DateUtils;
 
 import com.alen.firebasesampleproject.R;
 
@@ -35,7 +36,8 @@ public class TimeHelper {
             return getStringFromRes(R.string.message_time_delivered_now);
         } else if (timePassed >= MESSAGE_TIME_MIN && timePassed < MESSAGE_TIME_HOUR) {
             return ("" + timePassed + getStringFromRes(R.string.message_time_delivered));
-        } else if (timePassed >= MESSAGE_TIME_HOUR && timePassed < MESSAGE_TIME_DAY) {
+        } else if (timePassed >= MESSAGE_TIME_HOUR && timePassed < MESSAGE_TIME_DAY &&
+                DateUtils.isToday(timeInMillis)) {
             return formatDate(getStringFromRes(R.string.message_time_hours), timeInMillis);
         } else {
             return formatDate(getStringFromRes(R.string.message_time_days), timeInMillis);
