@@ -43,6 +43,7 @@ import butterknife.ButterKnife;
  */
 public class MessageFragment extends Fragment {
 
+    public static final String TAG = "message_fragment";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 50;
     public static final String MESSAGES_CHILD = "messages";
 

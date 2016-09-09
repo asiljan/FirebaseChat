@@ -136,10 +136,12 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     }
 
     private void initMessageFragment() {
-        FragmentTransaction fTransaction = getSupportFragmentManager().beginTransaction();
-        messageFragment = new MessageFragment();
-        fTransaction.add(HOLDER_VIEW_ID, messageFragment);
-        fTransaction.commit();
+        if (getSupportFragmentManager().findFragmentByTag(MessageFragment.TAG) == null) {
+            FragmentTransaction fTransaction = getSupportFragmentManager().beginTransaction();
+            messageFragment = new MessageFragment();
+            fTransaction.add(HOLDER_VIEW_ID, messageFragment, MessageFragment.TAG);
+            fTransaction.commit();
+        }
     }
 
     @Override
