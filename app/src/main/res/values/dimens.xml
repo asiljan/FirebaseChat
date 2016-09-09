@@ -16,4 +16,6 @@
     <dimen name="app_xxlarge_margins">52dp</dimen>
 
     <dimen name="send_msg_button_padding">12dp</dimen>
+
+    <dimen name="message_background_corners_radius">7dp</dimen>
 </resources>
