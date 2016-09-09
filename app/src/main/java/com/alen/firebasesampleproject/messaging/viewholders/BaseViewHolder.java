@@ -12,6 +12,8 @@ import com.alen.firebasesampleproject.data.models.Message;
  */
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
+    protected Context mContext;
+
     public BaseViewHolder(View itemView) {
         super(itemView);
     }
@@ -20,7 +22,7 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     protected String buildTimeMessage(String name, long time) {
         StringBuilder strBuilder = new StringBuilder(name);
-        strBuilder.append(",").append(" ").append(TimeHelper.getMessageSentTime(time));
+        strBuilder.append(",").append(" ").append(TimeHelper.getMessageSentTime(time, mContext));
         return strBuilder.toString();
     }
 }

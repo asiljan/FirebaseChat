@@ -34,6 +34,7 @@ public class MessageViewHolder extends BaseViewHolder {
 
     @Override
     public void bindData(Message message, final Context context) {
+        mContext = context;
         messageTextView.setText(message.getText());
         messageNameTextView.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
 

@@ -34,6 +34,7 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Message message, Context context) {
         //implement own logic for binding
+        mContext = context;
         messageText.setText(message.getText());
         messageDeliverTime.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
 

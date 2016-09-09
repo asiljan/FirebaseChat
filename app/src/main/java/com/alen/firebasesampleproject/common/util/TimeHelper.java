@@ -1,6 +1,8 @@
 package com.alen.firebasesampleproject.common.util;
 
-import com.alen.firebasesampleproject.common.helpers.LogHelper;
+import android.content.Context;
+
+import com.alen.firebasesampleproject.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,35 +18,37 @@ public class TimeHelper {
     private static final int MESSAGE_TIME_HOUR = 60;
     private static final int MESSAGE_TIME_DAY = 1440;
 
-    public static String getMessageSentTime(long timeInMillis) {
-        String messageSentTime;
+    private static Context mContext;
+
+    public static String getMessageSentTime(long timeInMillis, Context context) {
+        mContext = context;
         if (timeInMillis == 0) {
             return "";
         }
 
-        Date date = new Date(timeInMillis);
-
         long currentTime = System.currentTimeMillis();
         long messageTimeMinutes = TimeUnit.MILLISECONDS.toMinutes(timeInMillis);
         long currentTimeMinutes = TimeUnit.MILLISECONDS.toMinutes(currentTime);
-
         long timePassed = (currentTimeMinutes - messageTimeMinutes);
 
         if (timePassed < MESSAGE_TIME_MIN) {
-            return "Just now";
+            return getStringFromRes(R.string.message_time_delivered_now);
         } else if (timePassed >= MESSAGE_TIME_MIN && timePassed < MESSAGE_TIME_HOUR) {
-            messageSentTime = "" + timePassed + " min ago";
-            return messageSentTime;
+            return ("" + timePassed + getStringFromRes(R.string.message_time_delivered));
         } else if (timePassed >= MESSAGE_TIME_HOUR && timePassed < MESSAGE_TIME_DAY) {
-
-            SimpleDateFormat mFormatter = new SimpleDateFormat("HH:mm", Locale.getDefault());
-            messageSentTime = mFormatter.format(date);
-
-            return messageSentTime;
+            return formatDate(getStringFromRes(R.string.message_time_hours), timeInMillis);
         } else {
-            SimpleDateFormat formatter = new SimpleDateFormat("dd:MM:yy:HH:mm", Locale.getDefault());
-            messageSentTime = formatter.format(date);
-            return messageSentTime;
+            return formatDate(getStringFromRes(R.string.message_time_days), timeInMillis);
         }
+    }
+
+    private static String formatDate(String formatter, long timeInMillis) {
+        SimpleDateFormat mFormatter = new SimpleDateFormat(formatter, Locale.getDefault());
+        Date date = new Date(timeInMillis);
+        return mFormatter.format(date);
+    }
+
+    private static String getStringFromRes(int resId) {
+        return mContext.getString(resId);
     }
 }
