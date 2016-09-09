@@ -36,3 +36,8 @@ In order to receive Push notifications while app is on background you have to fo
 * Run the server with `node index.js` command.
 
 Server code is available here: [node server](https://github.com/asiljan/FirebaseChat/tree/master/server)
+
+## Feature improvements
+
+* Add 'copy message' functionality
+* Add chat groups...
