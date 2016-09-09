@@ -187,6 +187,8 @@ public class MessageFragment extends Fragment {
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition + 1 == (positionStart - 1))) {
                     mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView, null, positionStart);
+                } else if (userProfile.getUserName().equals(messageAdapter.getLastSentMessage().getName())) {
+                    mRecyclerView.smoothScrollToPosition(friendlyMessageCount-1);
                 } else {
                     //show new messageButton
                     toggleNewMessageButtonVisibility(true);

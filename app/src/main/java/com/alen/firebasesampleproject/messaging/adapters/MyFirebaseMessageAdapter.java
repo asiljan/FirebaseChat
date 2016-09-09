@@ -81,6 +81,10 @@ public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.
         return 0;
     }
 
+    public Message getLastSentMessage() {
+        return messageWrapperList.get(getItemCount()-1).message;
+    }
+
     class MessageWrapper {
         private MessageViewType messageViewType;
         private Message message;
