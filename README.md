@@ -19,7 +19,7 @@ Sign in screen             |  Chat screen
 
 **app/build.gradle**
 
-```groovy
+```gradle
 
 develop {
   initWith debug
@@ -30,7 +30,7 @@ develop {
 
 #### Local server
 
-In order to receive Push notifications while app is on background you have to follow this steps:
+In order to receive Push notifications while app is in background you have to follow this steps:
 
 * Install Node.js
 * Run the server with `node index.js` command.
