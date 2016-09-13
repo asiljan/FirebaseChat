@@ -19,12 +19,12 @@ Sign in screen             |  Chat screen
 
 **app/build.gradle**
 
-```gradle
+```groovy
 
 develop {
   initWith debug
   buildConfigField 'String', 'URL_ENDPOINT', '"http://192.168.5.16:3000"'
-  }
+}
 
 ```
 
