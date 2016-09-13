@@ -21,7 +21,7 @@ import com.alen.firebasesampleproject.data.events.UserCredentialEvent;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
 import com.alen.firebasesampleproject.messaging.MessageFragment;
-import com.alen.firebasesampleproject.messaging.interfaces.MessageBehavior;
+import com.alen.firebasesampleproject.messaging.interfaces.MessageInterface;
 import com.google.android.gms.appinvite.AppInvite;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
@@ -37,8 +37,15 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+/**
+ * MainActivity class handles with navigation through the application.
+ * Checks if user is authenticate user and shows SignIn screen otherwise,
+ * Shows MessageFragment, handles invitations.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
+ */
 public class MainActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
-        MessageBehavior {
+        MessageInterface {
 
     public static final String ANONYMOUS = "anonymous";
 
@@ -51,7 +58,6 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     @Inject
     RestManager restManager;
 
-    private MessageFragment messageFragment;
     private GoogleApiClient mGoogleApiClient;
     private String mPhotoUrl;
     private String mUsername;
@@ -92,10 +98,16 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         super.onStop();
     }
 
+    /**
+     * The method calls sendUserCredentails method of RestManager class.
+     */
     private void sendUserCredentials() {
         restManager.sendUserCredentials(mUserModel);
     }
 
+    /**
+     * This method checks if user is authenticated.
+     */
     private void initFirebaseAuth() {
         firebaseAuthInitialization();
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
@@ -114,6 +126,9 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         }
     }
 
+    /**
+     * This method saves UserModel and UserProfile object into Application class.
+     */
     private void storeUserProfile() {
         UserProfile userProfile = new UserProfile();
         userProfile.setUserName(mUsername);
@@ -135,17 +150,23 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
 
     }
 
+    /**
+     * This method initializes MessageFragment.
+     */
     private void initMessageFragment() {
         if (getSupportFragmentManager().findFragmentByTag(MessageFragment.TAG) == null) {
             FragmentTransaction fTransaction = getSupportFragmentManager().beginTransaction();
-            messageFragment = new MessageFragment();
+            MessageFragment messageFragment = new MessageFragment();
             fTransaction.add(HOLDER_VIEW_ID, messageFragment, MessageFragment.TAG);
             fTransaction.commit();
         }
     }
 
+    /**
+     * This method is MessageInterface method and it fires up when Firebase database is ready.
+     */
     @Override
-    public void onFirebaseDbDataReady() {
+    public void onFirebaseDBDataReady() {
         progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
@@ -171,6 +192,9 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         }
     }
 
+    /**
+     * This method handles user sign out process.
+     */
     private void signOut() {
         mFirebaseAuth.signOut();
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
@@ -183,6 +207,13 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         this.finish();
     }
 
+    /**
+     * This method checks if invitation was successfully or not.
+     *
+     * @param requestCode int requestCode
+     * @param resultCode int resultCode
+     * @param data Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

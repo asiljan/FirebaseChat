@@ -5,7 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * Created by alensiljan on 30/08/16.
+ * Base class that consists FirebaseAuth object and is used to fetch FirebaseAuth instance.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class BaseActivity extends AppCompatActivity {
 

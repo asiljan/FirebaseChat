@@ -11,7 +11,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by alensiljan on 08/09/16.
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class TimeHelper {
 

@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by alensiljan on 02/09/16.
+ * This class consists methods for updating and showing messages.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -61,6 +63,12 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
     }
 
+    /**
+     * This method populates messages list with new messages and calls notify adapter method.
+     *
+     * @param messages List<Message>
+     * @param ownerUid String user unique ID
+     */
     public void updateMessageList(List<Message> messages, String ownerUid) {
         messageWrapperList.clear();
         if (messages.size() > 0) {
@@ -74,11 +82,22 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     }
 
+    /**
+     * This method returns MessageViewType enumeration constant as integer.
+     *
+     * @param position int
+     * @return int MessageViewType as integer
+     */
     @Override
     public int getItemViewType(int position) {
         return messageWrapperList.get(position).messageViewType.ordinal();
     }
 
+    /**
+     * The method returns size of messages list
+     *
+     * @return int item count
+     */
     @Override
     public int getItemCount() {
         if (messageWrapperList != null) {
@@ -88,10 +107,18 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         return 0;
     }
 
+    /**
+     * This method returns last sent Message from messages list.
+     *
+     * @return Message model
+     */
     public Message getLastSentMessage() {
         return messageWrapperList.get(getItemCount() - 1).message;
     }
 
+    /**
+     * This class is used as Wrapper class for Message.
+     */
     class MessageWrapper {
         private MessageViewType messageViewType;
         private Message message;

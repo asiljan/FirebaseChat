@@ -14,7 +14,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by alensiljan on 08/09/16.
+ * This class consists method for building
+ * Custom 'NewMessage' button with custom background color,
+ * custom text color and custom text title for button.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class NewMessageButtonView extends LinearLayout {
 
@@ -33,6 +37,13 @@ public class NewMessageButtonView extends LinearLayout {
         initButton(context, attrs);
     }
 
+    /**
+     * This method fetches TypedAttribute (if any are defined) and
+     * sets color and text on a button.
+     *
+     * @param context Context
+     * @param attrs AttributeSet object
+     */
     private void initButton(Context context, AttributeSet attrs) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

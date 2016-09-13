@@ -1,18 +1,28 @@
 package com.alen.firebasesampleproject.common;
 
 /**
- * Created by alensiljan on 01/09/16.
+ * This is Singleton class and is used to return EventBus instance.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 
 import static org.greenrobot.eventbus.EventBus.getDefault;
 
 public class EventBus {
 
+    //eagerly instantiation
     private static org.greenrobot.eventbus.EventBus uniqueInstance = getDefault();
 
+    /**
+     * Private constructor to prevent instantiation
+     */
     private EventBus() {
     }
 
+    /**
+     *
+     *  @return EventBus instance
+     */
     public static org.greenrobot.eventbus.EventBus getDefaultInstance() {
         return uniqueInstance;
     }

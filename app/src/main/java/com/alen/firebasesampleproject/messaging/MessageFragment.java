@@ -19,14 +19,13 @@ import com.alen.firebasesampleproject.R;
 import com.alen.firebasesampleproject.common.Application;
 import com.alen.firebasesampleproject.common.EventBus;
 import com.alen.firebasesampleproject.common.helpers.FCMHelper;
-import com.alen.firebasesampleproject.common.helpers.LogHelper;
 import com.alen.firebasesampleproject.common.prefs.FirebasePreferences;
 import com.alen.firebasesampleproject.data.events.UserAccountInfoEvent;
 import com.alen.firebasesampleproject.data.models.Message;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
-import com.alen.firebasesampleproject.messaging.adapters.MyFirebaseMessageAdapter;
-import com.alen.firebasesampleproject.messaging.interfaces.MessageBehavior;
+import com.alen.firebasesampleproject.messaging.adapters.MessageAdapter;
+import com.alen.firebasesampleproject.messaging.interfaces.MessageInterface;
 import com.alen.firebasesampleproject.messaging.views.NewMessageButtonView;
 import com.alen.firebasesampleproject.userprofiledetails.UserAccountDetailsFragment;
 import com.bumptech.glide.Glide;
@@ -47,7 +46,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by alensiljan on 01/09/16.
+ * Operates with sending messages and shows chat
+ * messages.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class MessageFragment extends Fragment {
 
@@ -68,8 +70,8 @@ public class MessageFragment extends Fragment {
     private DatabaseReference mDatabaseReference;
     private UserProfile userProfile;
     private UserModel userModel;
-    private MessageBehavior messageBehaviorCallback;
-    private MyFirebaseMessageAdapter messageAdapter;
+    private MessageInterface messageBehaviorCallback;
+    private MessageAdapter messageAdapter;
 
     @Inject
     Application application;
@@ -115,17 +117,26 @@ public class MessageFragment extends Fragment {
         super.onStop();
     }
 
+    /**
+     * Tries to get reference to MessageInterface.
+     * Throws ClassCastException otherwise.
+     *
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         try {
-            messageBehaviorCallback = (MessageBehavior) context;
+            messageBehaviorCallback = (MessageInterface) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement MessageBehavior interface");
+            throw new ClassCastException(context.toString() + " must implement MessageInterface");
         }
     }
 
+    /**
+     * This method initializes layout components, sets OnClickListener, OnScrollListener
+     */
     private void initUI() {
         messageBox.setFilters(new InputFilter[]{new InputFilter.LengthFilter(mSharedPreferences
                 .getInt(FirebasePreferences.FRIENDLY_MSG_LENGTH, DEFAULT_MSG_LENGTH_LIMIT))});
@@ -173,8 +184,12 @@ public class MessageFragment extends Fragment {
         });
     }
 
+    /**
+     * This method creates MessageAdapter object, fetches Firebase Database instance and
+     * handles scrolling to position if its necessary.
+     */
     private void initFirebaseDB() {
-        messageAdapter = new MyFirebaseMessageAdapter(getActivity(), Glide.with(getActivity()));
+        messageAdapter = new MessageAdapter(getActivity(), Glide.with(getActivity()));
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mDatabaseReference.child(MESSAGES_CHILD).addValueEventListener(new ValueEventListener() {
@@ -186,7 +201,7 @@ public class MessageFragment extends Fragment {
                     snapshotData.add(message);
                 }
 
-                messageBehaviorCallback.onFirebaseDbDataReady();
+                messageBehaviorCallback.onFirebaseDBDataReady();
                 messageAdapter.updateMessageList(snapshotData, userModel.getUser());
             }
 
@@ -224,10 +239,20 @@ public class MessageFragment extends Fragment {
         mRecyclerView.setAdapter(messageAdapter);
     }
 
+    /**
+     * This method checks if 'NewMessage' button is shown
+     *
+     * @return boolean true if button is shown, false otherwise
+     */
     private boolean isNewMessageButtonVisible() {
         return newMessageButtonView.isShown();
     }
 
+    /**
+     * This method toggles button 'NewMessage' button visibility
+     *
+     * @param show boolean true if button needs to be shown, false otherwise
+     */
     private void toggleNewMessageButtonVisibility(boolean show) {
         if (show) {
             newMessageButtonView.setVisibility(View.VISIBLE);
@@ -236,11 +261,22 @@ public class MessageFragment extends Fragment {
         }
     }
 
+    /**
+     * This method handles ClickEvents on Users chat icon and calls
+     * method for showing FragmentDialog with User account info
+     *
+     * @param accountInfoEvent UserAccountInfoEvent object
+     */
     @Subscribe
     public void onUserAccountInfoEvent(UserAccountInfoEvent accountInfoEvent) {
         showUserAccountDetailsDialog(accountInfoEvent.getMessage());
     }
 
+    /**
+     * This method displays FragmentDialog with User account info details
+     *
+     * @param message Message object
+     */
     private void showUserAccountDetailsDialog(Message message) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         Fragment prev = getActivity().getSupportFragmentManager().findFragmentByTag(UserAccountDetailsFragment.TAG);

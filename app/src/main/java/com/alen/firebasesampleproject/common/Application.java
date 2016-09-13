@@ -3,8 +3,8 @@ package com.alen.firebasesampleproject.common;
 import com.alen.firebasesampleproject.data.api.ApiService;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
-import com.alen.firebasesampleproject.di.components.DaggerMyAppComponent;
-import com.alen.firebasesampleproject.di.components.MyAppComponent;
+import com.alen.firebasesampleproject.di.components.DaggerAppComponent;
+import com.alen.firebasesampleproject.di.components.AppComponent;
 import com.alen.firebasesampleproject.di.modules.AppModule;
 import com.alen.firebasesampleproject.di.modules.NetModule;
 import com.alen.firebasesampleproject.di.modules.RestModule;
@@ -14,7 +14,7 @@ import com.alen.firebasesampleproject.di.modules.RestModule;
  */
 public class Application extends android.app.Application {
 
-    private MyAppComponent appComponent;
+    private AppComponent appComponent;
     UserProfile userProfile;
     UserModel userModel;
 
@@ -22,14 +22,14 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
-        appComponent = DaggerMyAppComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .netModule(new NetModule(ApiService.MESSAGING_ENDPOINT))
                 .restModule(new RestModule())
                 .build();
     }
 
-    public MyAppComponent getAppComponent() {
+    public AppComponent getAppComponent() {
         return appComponent;
     }
 

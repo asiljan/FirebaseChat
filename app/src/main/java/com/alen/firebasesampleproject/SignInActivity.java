@@ -28,7 +28,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by alensiljan on 30/08/16.
+ * This class handles user sign in with Google account.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class SignInActivity extends BaseActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
@@ -36,6 +38,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     @BindView(R.id.sign_in_button)
     SignInButton mSignInButton;
+
     private GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -50,6 +53,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         firebaseAuthInitialization();
     }
 
+    /**
+     * This method creates GoogleSignInOptions object and GoogleApiClient object.
+     */
     private void configureGoogleSignIn() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -71,6 +77,9 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * This method starts Sign In process.
+     */
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -81,6 +90,13 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         Toast.makeText(this, getString(R.string.google_play_service_error), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Method checks for appropriate requestCode and check if SignInResults is success.
+     *
+     * @param requestCode int
+     * @param resultCode int
+     * @param data Intent
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -98,6 +114,12 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * The method initiates signIn with fetched credentials and starts MainActivity
+     * if Sign In is complete.
+     *
+     * @param idToken String
+     */
     private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mFirebaseAuth.signInWithCredential(credential)
