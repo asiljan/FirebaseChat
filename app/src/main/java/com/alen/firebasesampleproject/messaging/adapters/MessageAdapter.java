@@ -20,13 +20,13 @@ import java.util.List;
 /**
  * Created by alensiljan on 02/09/16.
  */
-public class MyFirebaseMessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<MessageWrapper> messageWrapperList;
     private Context context;
     private RequestManager rmGlide;
 
-    public MyFirebaseMessageAdapter(Context context, RequestManager rmGlide) {
+    public MessageAdapter(Context context, RequestManager rmGlide) {
         this.context = context;
         this.rmGlide = rmGlide;
         messageWrapperList = new ArrayList<>();

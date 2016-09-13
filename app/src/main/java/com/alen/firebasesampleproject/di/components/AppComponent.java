@@ -15,7 +15,7 @@ import dagger.Component;
  */
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class, RestModule.class})
-public interface MyAppComponent {
+public interface AppComponent {
     void inject(MainActivity activity);
 
     void inject(MessageFragment fragment);
