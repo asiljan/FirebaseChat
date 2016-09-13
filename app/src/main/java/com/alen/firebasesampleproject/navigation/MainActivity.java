@@ -20,6 +20,7 @@ import com.alen.firebasesampleproject.common.helpers.LogHelper;
 import com.alen.firebasesampleproject.data.events.UserCredentialEvent;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
+import com.alen.firebasesampleproject.di.components.AppComponent;
 import com.alen.firebasesampleproject.messaging.MessageFragment;
 import com.alen.firebasesampleproject.messaging.interfaces.MessageInterface;
 import com.google.android.gms.appinvite.AppInvite;
@@ -68,8 +69,6 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        ((Application) getApplication()).getAppComponent().inject(this);
 
         mUsername = ANONYMOUS;
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -211,8 +210,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
      * This method checks if invitation was successfully or not.
      *
      * @param requestCode int requestCode
-     * @param resultCode int resultCode
-     * @param data Intent
+     * @param resultCode  int resultCode
+     * @param data        Intent
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -227,5 +226,10 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
                 LogHelper.printLogMsg("Failed to send invitation");
             }
         }
+    }
+
+    @Override
+    protected void injectDependencies(AppComponent appComponent) {
+        appComponent.inject(this);
     }
 }

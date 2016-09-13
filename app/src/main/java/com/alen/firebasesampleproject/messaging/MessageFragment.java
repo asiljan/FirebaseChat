@@ -97,7 +97,7 @@ public class MessageFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ((Application) getActivity().getApplication()).getAppComponent().inject(this);
+        Application.getInstance().getAppComponent().inject(this);
 
         userProfile = application.getUserProfile();
         userModel = application.getUserModel();

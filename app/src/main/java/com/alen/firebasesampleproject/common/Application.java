@@ -1,12 +1,11 @@
 package com.alen.firebasesampleproject.common;
 
-import com.alen.firebasesampleproject.data.api.ApiService;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
-import com.alen.firebasesampleproject.di.components.DaggerAppComponent;
 import com.alen.firebasesampleproject.di.components.AppComponent;
+import com.alen.firebasesampleproject.di.components.DaggerAppComponent;
 import com.alen.firebasesampleproject.di.modules.AppModule;
-import com.alen.firebasesampleproject.di.modules.NetModule;
+import com.alen.firebasesampleproject.di.modules.HostModule;
 import com.alen.firebasesampleproject.di.modules.RestModule;
 
 /**
@@ -14,7 +13,9 @@ import com.alen.firebasesampleproject.di.modules.RestModule;
  */
 public class Application extends android.app.Application {
 
+    private static Application instance;
     private AppComponent appComponent;
+
     UserProfile userProfile;
     UserModel userModel;
 
@@ -22,11 +23,21 @@ public class Application extends android.app.Application {
     public void onCreate() {
         super.onCreate();
 
+        setInstance(this);
+
         appComponent = DaggerAppComponent.builder()
-                .appModule(new AppModule(this))
-                .netModule(new NetModule(ApiService.MESSAGING_ENDPOINT))
+                .appModule(new AppModule(getInstance()))
                 .restModule(new RestModule())
+                .hostModule(new HostModule())
                 .build();
+    }
+
+    public static Application getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(Application instance) {
+        Application.instance = instance;
     }
 
     public AppComponent getAppComponent() {

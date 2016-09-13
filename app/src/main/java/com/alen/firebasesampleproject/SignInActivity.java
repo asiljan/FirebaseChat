@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.alen.firebasesampleproject.common.BaseActivity;
 import com.alen.firebasesampleproject.common.helpers.LogHelper;
+import com.alen.firebasesampleproject.di.components.AppComponent;
 import com.alen.firebasesampleproject.navigation.MainActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -51,6 +52,11 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
         configureGoogleSignIn();
         firebaseAuthInitialization();
+    }
+
+    @Override
+    protected void injectDependencies(AppComponent appComponent) {
+        //
     }
 
     /**

@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 import com.alen.firebasesampleproject.common.Application;
 import com.alen.firebasesampleproject.data.api.ApiService;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -21,27 +23,27 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetModule {
 
-    String mBaseUrl;
-
-    public NetModule(String baseUrl) {
-        mBaseUrl = baseUrl;
-    }
-
-    OkHttpClient provideOkHttpClient() {
+    @Provides
+    @Singleton
+    OkHttpClient provideOkHttpClient(Integer networkTimeout) {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        OkHttpClient client = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .connectTimeout(networkTimeout, TimeUnit.SECONDS)
+                .readTimeout(networkTimeout, TimeUnit.SECONDS)
+                .build();
 
         return client;
     }
 
     @Provides
     @Singleton
-    ApiService provideApiService() {
+    ApiService provideApiService(String mBaseUrl, OkHttpClient client) {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(mBaseUrl)
-                .client(provideOkHttpClient())
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
