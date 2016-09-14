@@ -7,13 +7,13 @@ import com.alen.firebasesampleproject.data.models.Message;
  */
 public class UserAccountInfoEvent {
 
-    private Message message;
+    private Message mMessage;
 
-    public UserAccountInfoEvent(Message message) {
-        this.message = message;
+    public UserAccountInfoEvent(Message mMessage) {
+        this.mMessage = mMessage;
     }
 
     public Message getMessage() {
-        return message;
+        return mMessage;
     }
 }

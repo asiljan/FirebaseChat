@@ -49,15 +49,15 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         MessageInterface {
 
     public static final String ANONYMOUS = "anonymous";
-
     private static int HOLDER_VIEW_ID = R.id.message_fragment;
+
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     @Inject
     Application mApplication;
     @Inject
-    RestManager restManager;
+    RestManager mRestManager;
 
     private GoogleApiClient mGoogleApiClient;
     private String mPhotoUrl;
@@ -101,7 +101,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
      * The method calls sendUserCredentails method of RestManager class.
      */
     private void sendUserCredentials() {
-        restManager.sendUserCredentials(mUserModel);
+        mRestManager.sendUserCredentials(mUserModel);
     }
 
     /**
@@ -130,10 +130,10 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
      */
     private void storeUserProfile() {
         UserProfile userProfile = new UserProfile();
-        userProfile.setUserName(mUsername);
-        userProfile.setPhotoUrl(mPhotoUrl);
-        mApplication.setUserProfile(userProfile);
-        mApplication.setUserModel(mUserModel);
+        userProfile.setmUserName(mUsername);
+        userProfile.setmPhotoUrl(mPhotoUrl);
+        mApplication.setmUserProfile(userProfile);
+        mApplication.setmUserModel(mUserModel);
         initMessageFragment();
     }
 
@@ -200,8 +200,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
         mPhotoUrl = null;
         mUserModel = null;
         mUsername = null;
-        mApplication.setUserModel(null);
-        mApplication.setUserProfile(null);
+        mApplication.setmUserModel(null);
+        mApplication.setmUserProfile(null);
         startActivity(new Intent(this, SignInActivity.class));
         this.finish();
     }

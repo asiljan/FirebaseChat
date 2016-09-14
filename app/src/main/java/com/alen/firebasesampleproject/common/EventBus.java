@@ -11,7 +11,7 @@ import static org.greenrobot.eventbus.EventBus.getDefault;
 public class EventBus {
 
     //eagerly instantiation
-    private static org.greenrobot.eventbus.EventBus uniqueInstance = getDefault();
+    private static org.greenrobot.eventbus.EventBus mUniqueInstance = getDefault();
 
     /**
      * Private constructor to prevent instantiation
@@ -24,6 +24,6 @@ public class EventBus {
      *  @return EventBus instance
      */
     public static org.greenrobot.eventbus.EventBus getDefaultInstance() {
-        return uniqueInstance;
+        return mUniqueInstance;
     }
 }

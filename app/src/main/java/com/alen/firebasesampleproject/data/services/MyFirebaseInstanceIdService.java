@@ -2,12 +2,12 @@ package com.alen.firebasesampleproject.data.services;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 /**
- * Created by alensiljan on 31/08/16.
  * Handles FCM logic. InstanceID token identifies application
- * to FCM server
+ * to FCM server.
+ *
+ * @author Alen Siljan <alen.siljan@gmail.com>
  */
 public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
@@ -19,10 +19,5 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
 
         System.out.println("FCM instanceID token: " + token);
 
-        //Once a token is generated, we subscribe to topic
-//        String username = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-
-        /*FirebaseMessaging.getInstance()
-                .subscribeToTopic("user_BBBTester");*/
     }
 }

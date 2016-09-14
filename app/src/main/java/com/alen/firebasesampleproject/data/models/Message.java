@@ -5,56 +5,56 @@ package com.alen.firebasesampleproject.data.models;
  */
 public class Message {
 
-    private long createdAt;
-    private String text;
-    private String name;
-    private String photoUrl;
-    private String uid;
+    private long mCreatedAt;
+    private String mText;
+    private String mName;
+    private String mPhotoUrl;
+    private String mUid;
 
     public Message() {
     }
 
-    public Message(String text, String name, String photoUrl, long createdAt, String uid) {
-        this.createdAt = createdAt;
-        this.text = text;
-        this.name = name;
-        this.photoUrl = photoUrl;
-        this.uid = uid;
+    public Message(String mText, String mName, String mPhotoUrl, long mCreatedAt, String mUid) {
+        this.mCreatedAt = mCreatedAt;
+        this.mText = mText;
+        this.mName = mName;
+        this.mPhotoUrl = mPhotoUrl;
+        this.mUid = mUid;
     }
 
-    public Long getCreatedAt() {
-        return createdAt;
+    public Long getmCreatedAt() {
+        return mCreatedAt;
     }
 
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = createdAt;
+    public void setmCreatedAt(long mCreatedAt) {
+        this.mCreatedAt = mCreatedAt;
     }
 
     public String getText() {
-        return text;
+        return mText;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setText(String mText) {
+        this.mText = mText;
     }
 
     public String getName() {
-        return name;
+        return mName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String mName) {
+        this.mName = mName;
     }
 
     public String getPhotoUrl() {
-        return photoUrl;
+        return mPhotoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setPhotoUrl(String mPhotoUrl) {
+        this.mPhotoUrl = mPhotoUrl;
     }
 
     public String getUid() {
-        return uid;
+        return mUid;
     }
 }

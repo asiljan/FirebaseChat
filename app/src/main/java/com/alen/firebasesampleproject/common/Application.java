@@ -13,11 +13,11 @@ import com.alen.firebasesampleproject.di.modules.RestModule;
  */
 public class Application extends android.app.Application {
 
-    private static Application instance;
-    private AppComponent appComponent;
+    private static Application sInstance;
+    private AppComponent mAppComponent;
 
-    UserProfile userProfile;
-    UserModel userModel;
+    UserProfile mUserProfile;
+    UserModel mUserModel;
 
     @Override
     public void onCreate() {
@@ -25,7 +25,7 @@ public class Application extends android.app.Application {
 
         setInstance(this);
 
-        appComponent = DaggerAppComponent.builder()
+        mAppComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(getInstance()))
                 .restModule(new RestModule())
                 .hostModule(new HostModule())
@@ -33,30 +33,30 @@ public class Application extends android.app.Application {
     }
 
     public static Application getInstance() {
-        return instance;
+        return sInstance;
     }
 
-    public static void setInstance(Application instance) {
-        Application.instance = instance;
+    public static void setInstance(Application sInstance) {
+        Application.sInstance = sInstance;
     }
 
-    public AppComponent getAppComponent() {
-        return appComponent;
+    public AppComponent getmAppComponent() {
+        return mAppComponent;
     }
 
-    public UserProfile getUserProfile() {
-        return userProfile;
+    public UserProfile getmUserProfile() {
+        return mUserProfile;
     }
 
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
+    public void setmUserProfile(UserProfile mUserProfile) {
+        this.mUserProfile = mUserProfile;
     }
 
-    public UserModel getUserModel() {
-        return userModel;
+    public UserModel getmUserModel() {
+        return mUserModel;
     }
 
-    public void setUserModel(UserModel userModel) {
-        this.userModel = userModel;
+    public void setmUserModel(UserModel mUserModel) {
+        this.mUserModel = mUserModel;
     }
 }

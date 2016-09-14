@@ -5,22 +5,22 @@ package com.alen.firebasesampleproject.data.models;
  */
 public class UserProfile {
 
-    private String photoUrl;
-    private String userName;
+    private String mPhotoUrl;
+    private String mUserName;
 
-    public String getPhotoUrl() {
-        return photoUrl;
+    public String getmPhotoUrl() {
+        return mPhotoUrl;
     }
 
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setmPhotoUrl(String mPhotoUrl) {
+        this.mPhotoUrl = mPhotoUrl;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getmUserName() {
+        return mUserName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setmUserName(String mUserName) {
+        this.mUserName = mUserName;
     }
 }

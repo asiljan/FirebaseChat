@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
 public class NewMessageButtonView extends LinearLayout {
 
     @BindView(R.id.new_msg_btn_holder)
-    LinearLayout buttonHolder;
+    LinearLayout mButtonHolder;
     @BindView(R.id.new_msg_btn_text)
-    TextView buttonText;
+    TextView mButtonText;
 
     public NewMessageButtonView(Context context) {
         super(context);
@@ -62,9 +62,9 @@ public class NewMessageButtonView extends LinearLayout {
 
             tArray.recycle();
 
-            buttonHolder.setBackgroundColor(bckgColor);
-            buttonText.setText(strBtnText);
-            buttonText.setTextColor(textColor);
+            mButtonHolder.setBackgroundColor(bckgColor);
+            mButtonText.setText(strBtnText);
+            mButtonText.setTextColor(textColor);
         }
 
     }

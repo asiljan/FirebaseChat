@@ -66,15 +66,15 @@ public class MessageFragment extends Fragment {
     @BindView(R.id.newMessageBtn)
     NewMessageButtonView newMessageButtonView;
 
-    private LinearLayoutManager llManager;
+    private LinearLayoutManager mLayoutManager;
     private DatabaseReference mDatabaseReference;
-    private UserProfile userProfile;
-    private UserModel userModel;
-    private MessageInterface messageBehaviorCallback;
-    private MessageAdapter messageAdapter;
+    private UserProfile mUserProfile;
+    private UserModel mUserModel;
+    private MessageInterface mMessageCallback;
+    private MessageAdapter mMessageAdapter;
 
     @Inject
-    Application application;
+    Application mApplication;
     @Inject
     SharedPreferences mSharedPreferences;
 
@@ -97,10 +97,10 @@ public class MessageFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Application.getInstance().getAppComponent().inject(this);
+        Application.getInstance().getmAppComponent().inject(this);
 
-        userProfile = application.getUserProfile();
-        userModel = application.getUserModel();
+        mUserProfile = mApplication.getmUserProfile();
+        mUserModel = mApplication.getmUserModel();
 
         initUI();
     }
@@ -128,7 +128,7 @@ public class MessageFragment extends Fragment {
         super.onAttach(context);
 
         try {
-            messageBehaviorCallback = (MessageInterface) context;
+            mMessageCallback = (MessageInterface) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement MessageInterface");
         }
@@ -142,8 +142,8 @@ public class MessageFragment extends Fragment {
                 .getInt(FirebasePreferences.FRIENDLY_MSG_LENGTH, DEFAULT_MSG_LENGTH_LIMIT))});
 
         //init recyclerView
-        llManager = new LinearLayoutManager(getContext());
-        llManager.setStackFromEnd(true);
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mLayoutManager.setStackFromEnd(true);
 
         initFirebaseDB();
 
@@ -152,11 +152,11 @@ public class MessageFragment extends Fragment {
             public void onClick(View v) {
                 if (messageBox.getText().toString().trim().length() > 0) {
                     Message message = new Message(messageBox.getText().toString(),
-                            userProfile.getUserName(), userProfile.getPhotoUrl(), System.currentTimeMillis(),
-                            userModel.getUser());
+                            mUserProfile.getmUserName(), mUserProfile.getmPhotoUrl(), System.currentTimeMillis(),
+                            mUserModel.getUser());
                     mDatabaseReference.child(MESSAGES_CHILD).push().setValue(message);
 
-                    FCMHelper.sendNotificationToUser(userModel.getUser(), userProfile.getUserName(),
+                    FCMHelper.sendNotificationToUser(mUserModel.getUser(), mUserProfile.getmUserName(),
                             messageBox.getText().toString());
 
                     messageBox.setText("");
@@ -167,7 +167,7 @@ public class MessageFragment extends Fragment {
         newMessageButtonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
+                mRecyclerView.smoothScrollToPosition(mMessageAdapter.getItemCount() - 1);
                 toggleNewMessageButtonVisibility(false);
             }
         });
@@ -176,7 +176,7 @@ public class MessageFragment extends Fragment {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (llManager.findLastCompletelyVisibleItemPosition() == messageAdapter.getItemCount() - 1 &&
+                if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mMessageAdapter.getItemCount() - 1 &&
                         isNewMessageButtonVisible()) {
                     toggleNewMessageButtonVisibility(false);
                 }
@@ -189,7 +189,7 @@ public class MessageFragment extends Fragment {
      * handles scrolling to position if its necessary.
      */
     private void initFirebaseDB() {
-        messageAdapter = new MessageAdapter(getActivity(), Glide.with(getActivity()));
+        mMessageAdapter = new MessageAdapter(getActivity(), Glide.with(getActivity()));
 
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mDatabaseReference.child(MESSAGES_CHILD).addValueEventListener(new ValueEventListener() {
@@ -201,8 +201,8 @@ public class MessageFragment extends Fragment {
                     snapshotData.add(message);
                 }
 
-                messageBehaviorCallback.onFirebaseDBDataReady();
-                messageAdapter.updateMessageList(snapshotData, userModel.getUser());
+                mMessageCallback.onFirebaseDBDataReady();
+                mMessageAdapter.updateMessageList(snapshotData, mUserModel.getUser());
             }
 
             @Override
@@ -211,21 +211,21 @@ public class MessageFragment extends Fragment {
             }
         });
 
-        messageAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+        mMessageAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 super.onItemRangeInserted(positionStart, itemCount);
 
-                int friendlyMessageCount = messageAdapter.getItemCount();
+                int friendlyMessageCount = mMessageAdapter.getItemCount();
 
                 if (friendlyMessageCount > 0) {
                     int lastVisiblePosition =
-                            llManager.findLastCompletelyVisibleItemPosition();
+                            mLayoutManager.findLastCompletelyVisibleItemPosition();
                     if (lastVisiblePosition == -1 ||
                             (positionStart >= (friendlyMessageCount - 1) &&
                                     lastVisiblePosition + 1 == (positionStart - 1))) {
                         mRecyclerView.getLayoutManager().smoothScrollToPosition(mRecyclerView, null, positionStart);
-                    } else if (userProfile.getUserName().equals(messageAdapter.getLastSentMessage().getName())) {
+                    } else if (mUserProfile.getmUserName().equals(mMessageAdapter.getLastSentMessage().getName())) {
                         mRecyclerView.smoothScrollToPosition(friendlyMessageCount - 1);
                     } else {
                         //show new messageButton
@@ -235,8 +235,8 @@ public class MessageFragment extends Fragment {
             }
         });
 
-        mRecyclerView.setLayoutManager(llManager);
-        mRecyclerView.setAdapter(messageAdapter);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(mMessageAdapter);
     }
 
     /**

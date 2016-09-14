@@ -24,14 +24,14 @@ import java.util.List;
  */
 public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<MessageWrapper> messageWrapperList;
-    private Context context;
-    private RequestManager rmGlide;
+    private List<MessageWrapper> mMessageWrapperList;
+    private Context mContext;
+    private RequestManager mGlide;
 
-    public MessageAdapter(Context context, RequestManager rmGlide) {
-        this.context = context;
-        this.rmGlide = rmGlide;
-        messageWrapperList = new ArrayList<>();
+    public MessageAdapter(Context mContext, RequestManager mGlide) {
+        this.mContext = mContext;
+        this.mGlide = mGlide;
+        mMessageWrapperList = new ArrayList<>();
     }
 
     @Override
@@ -49,16 +49,16 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MessageWrapper messageWrapper = messageWrapperList.get(position);
+        MessageWrapper messageWrapper = mMessageWrapperList.get(position);
 
-        switch (messageWrapper.messageViewType) {
+        switch (messageWrapper.mMessageViewType) {
             case MESSAGE:
                 BaseViewHolder messageViewHolder = (MessageViewHolder) holder;
-                messageViewHolder.bindData(messageWrapperList.get(position).message, context, rmGlide);
+                messageViewHolder.bindData(mMessageWrapperList.get(position).mMessage, mContext, mGlide);
                 break;
             case MESSAGE_OWNER:
                 BaseViewHolder messageOwnerViewHolder = (MessageOwnerViewHolder) holder;
-                messageOwnerViewHolder.bindData(messageWrapperList.get(position).message, context, rmGlide);
+                messageOwnerViewHolder.bindData(mMessageWrapperList.get(position).mMessage, mContext, mGlide);
                 break;
         }
     }
@@ -70,10 +70,10 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @param ownerUid String user unique ID
      */
     public void updateMessageList(List<Message> messages, String ownerUid) {
-        messageWrapperList.clear();
+        mMessageWrapperList.clear();
         if (messages.size() > 0) {
             for (Message m : messages) {
-                messageWrapperList.add(new MessageWrapper(m, ownerUid.equals(m.getUid())));
+                mMessageWrapperList.add(new MessageWrapper(m, ownerUid.equals(m.getUid())));
             }
             notifyItemInserted(getItemCount());
         } else {
@@ -90,7 +90,7 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     @Override
     public int getItemViewType(int position) {
-        return messageWrapperList.get(position).messageViewType.ordinal();
+        return mMessageWrapperList.get(position).mMessageViewType.ordinal();
     }
 
     /**
@@ -100,8 +100,8 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      */
     @Override
     public int getItemCount() {
-        if (messageWrapperList != null) {
-            return messageWrapperList.size();
+        if (mMessageWrapperList != null) {
+            return mMessageWrapperList.size();
         }
 
         return 0;
@@ -113,23 +113,23 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
      * @return Message model
      */
     public Message getLastSentMessage() {
-        return messageWrapperList.get(getItemCount() - 1).message;
+        return mMessageWrapperList.get(getItemCount() - 1).mMessage;
     }
 
     /**
      * This class is used as Wrapper class for Message.
      */
     class MessageWrapper {
-        private MessageViewType messageViewType;
-        private Message message;
+        private MessageViewType mMessageViewType;
+        private Message mMessage;
 
-        public MessageWrapper(Message message, boolean ownerMsg) {
-            this.message = message;
+        public MessageWrapper(Message mMessage, boolean ownerMsg) {
+            this.mMessage = mMessage;
 
             if (ownerMsg) {
-                messageViewType = MessageViewType.MESSAGE_OWNER;
+                mMessageViewType = MessageViewType.MESSAGE_OWNER;
             } else {
-                messageViewType = MessageViewType.MESSAGE;
+                mMessageViewType = MessageViewType.MESSAGE;
             }
         }
     }

@@ -19,10 +19,10 @@ public class TimeHelper {
     private static final int MESSAGE_TIME_HOUR = 60;
     private static final int MESSAGE_TIME_DAY = 1440;
 
-    private static Context mContext;
+    private static Context sContext;
 
     public static String getMessageSentTime(long timeInMillis, Context context) {
-        mContext = context;
+        sContext = context;
         if (timeInMillis == 0) {
             return "";
         }
@@ -51,6 +51,6 @@ public class TimeHelper {
     }
 
     private static String getStringFromRes(int resId) {
-        return mContext.getString(resId);
+        return sContext.getString(resId);
     }
 }

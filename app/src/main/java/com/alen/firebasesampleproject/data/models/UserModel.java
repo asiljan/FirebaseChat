@@ -5,27 +5,27 @@ package com.alen.firebasesampleproject.data.models;
  */
 public class UserModel {
 
-    private String user;
-    private String token;
+    private String mUser;
+    private String mToken;
 
-    public UserModel(String uUid, String token) {
-        this.user = uUid;
-        this.token = token;
+    public UserModel(String uUid, String mToken) {
+        this.mUser = uUid;
+        this.mToken = mToken;
     }
 
     public String getUser() {
-        return user;
+        return mUser;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUser(String mUser) {
+        this.mUser = mUser;
     }
 
     public String getToken() {
-        return token;
+        return mToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setToken(String mToken) {
+        this.mToken = mToken;
     }
 }

@@ -6,9 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.alen.firebasesampleproject.R;
-import com.alen.firebasesampleproject.common.util.TimeHelper;
 import com.alen.firebasesampleproject.data.models.Message;
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
 import butterknife.BindView;
@@ -21,11 +19,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessageOwnerViewHolder extends BaseViewHolder {
 
     @BindView(R.id.messengerOwnerText)
-    TextView messageText;
+    TextView mMessageText;
     @BindView(R.id.messengerOwnerTime)
-    TextView messageDeliverTime;
+    TextView mMessageDeliverTime;
     @BindView(R.id.messengerOwnerImageView)
-    CircleImageView circleImageView;
+    CircleImageView mCircleImageView;
 
     public MessageOwnerViewHolder(View itemView) {
         super(itemView);
@@ -36,18 +34,18 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
     public void bindData(Message message, Context context, RequestManager glide) {
         //implement own logic for binding
         mContext = context;
-        messageText.setText(message.getText());
-        messageDeliverTime.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
+        mMessageText.setText(message.getText());
+        mMessageDeliverTime.setText(buildTimeMessage(message.getName(), message.getmCreatedAt()));
 
         if (message.getPhotoUrl() == null) {
-            circleImageView
+            mCircleImageView
                     .setImageDrawable(ContextCompat
                             .getDrawable(context,
                                     R.drawable.ic_account_circle_black_36dp));
         } else {
             glide
                     .load(message.getPhotoUrl())
-                    .into(circleImageView);
+                    .into(mCircleImageView);
         }
     }
 }

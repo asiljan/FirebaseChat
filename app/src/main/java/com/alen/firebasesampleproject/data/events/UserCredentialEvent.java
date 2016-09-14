@@ -5,17 +5,17 @@ package com.alen.firebasesampleproject.data.events;
  */
 public class UserCredentialEvent {
 
-    private boolean success;
+    private boolean mSuccess;
 
     public UserCredentialEvent() {
 
     }
 
-    public UserCredentialEvent(boolean success) {
-        this.success = success;
+    public UserCredentialEvent(boolean mSuccess) {
+        this.mSuccess = mSuccess;
     }
 
     public boolean isSuccess() {
-        return success;
+        return mSuccess;
     }
 }

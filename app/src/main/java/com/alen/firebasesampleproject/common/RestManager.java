@@ -20,16 +20,16 @@ public class RestManager {
 
     private static final int RESPONSE_CODE_OK = 200;
 
-    ApiService apiService;
+    ApiService mApiService;
 
     /**
      * Class constructor is used to store ApiService reference
      *
-     * @param apiService ApiService interface
+     * @param mApiService ApiService interface
      */
     @Inject
-    public RestManager(ApiService apiService) {
-        this.apiService = apiService;
+    public RestManager(ApiService mApiService) {
+        this.mApiService = mApiService;
     }
 
     /**
@@ -38,7 +38,7 @@ public class RestManager {
      * @param mUserModel UserModel
      */
     public void sendUserCredentials(UserModel mUserModel) {
-        Call<Object> call = apiService.sendUserCredentials(mUserModel);
+        Call<Object> call = mApiService.sendUserCredentials(mUserModel);
 
         call.enqueue(new Callback<Object>() {
             @Override
