@@ -3,10 +3,7 @@ package com.alen.firebasesampleproject.common;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
 import com.alen.firebasesampleproject.di.components.AppComponent;
-import com.alen.firebasesampleproject.di.components.DaggerAppComponent;
 import com.alen.firebasesampleproject.di.modules.AppModule;
-import com.alen.firebasesampleproject.di.modules.HostModule;
-import com.alen.firebasesampleproject.di.modules.RestModule;
 
 /**
  * Created by alensiljan on 01/09/16.
@@ -25,11 +22,11 @@ public class Application extends android.app.Application {
 
         setInstance(this);
 
-        mAppComponent = DaggerAppComponent.builder()
+        mAppComponent = DaggerAppComponent
+                .builder()
                 .appModule(new AppModule(getInstance()))
-                .restModule(new RestModule())
-                .hostModule(new HostModule())
                 .build();
+
     }
 
     public static Application getInstance() {

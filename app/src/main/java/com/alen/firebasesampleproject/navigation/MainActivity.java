@@ -28,6 +28,7 @@ import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -58,6 +59,8 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
     Application mApplication;
     @Inject
     RestManager mRestManager;
+    @Inject
+    FirebaseAuth mFirebaseAuth;
 
     private GoogleApiClient mGoogleApiClient;
     private String mPhotoUrl;
@@ -108,7 +111,7 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
      * This method checks if user is authenticated.
      */
     private void initFirebaseAuth() {
-        firebaseAuthInitialization();
+
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
         if (mFirebaseUser == null) {

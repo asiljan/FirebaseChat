@@ -1,7 +1,10 @@
 package com.alen.firebasesampleproject.di.components;
 
+import com.alen.firebasesampleproject.SignInActivity;
 import com.alen.firebasesampleproject.di.modules.AppModule;
+import com.alen.firebasesampleproject.di.modules.FirebaseModule;
 import com.alen.firebasesampleproject.di.modules.HostModule;
+import com.alen.firebasesampleproject.di.modules.LoginModule;
 import com.alen.firebasesampleproject.di.modules.NetModule;
 import com.alen.firebasesampleproject.di.modules.RestModule;
 import com.alen.firebasesampleproject.messaging.MessageFragment;
@@ -20,9 +23,12 @@ import dagger.Component;
         NetModule.class,
         HostModule.class,
         RestModule.class,
+        FirebaseModule.class,
 })
 public interface AppComponent {
     void inject(MainActivity activity);
 
     void inject(MessageFragment fragment);
+
+    LoginComponent plus(LoginModule loginModule);
 }

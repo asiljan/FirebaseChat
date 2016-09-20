@@ -14,17 +14,11 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected FirebaseAuth mFirebaseAuth;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         injectDependencies(Application.getInstance().getmAppComponent());
-    }
-
-    protected void firebaseAuthInitialization() {
-        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     protected abstract void injectDependencies(AppComponent appComponent);
