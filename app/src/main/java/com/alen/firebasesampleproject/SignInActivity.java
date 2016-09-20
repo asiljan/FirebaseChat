@@ -10,7 +10,6 @@ import android.widget.Toast;
 import com.alen.firebasesampleproject.common.BaseActivity;
 import com.alen.firebasesampleproject.common.helpers.LogHelper;
 import com.alen.firebasesampleproject.di.components.AppComponent;
-import com.alen.firebasesampleproject.di.components.LoginComponent;
 import com.alen.firebasesampleproject.di.modules.LoginModule;
 import com.alen.firebasesampleproject.mvp.presenters.ILoginPresenter;
 import com.alen.firebasesampleproject.mvp.views.ILoginView;
@@ -40,7 +39,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
     SignInButton mSignInButton;
 
     @Inject
-    protected ILoginPresenter mLoginPresenter;
+    ILoginPresenter mLoginPresenter;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -57,7 +56,7 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     protected void injectDependencies(AppComponent appComponent) {
-        appComponent.plus(new LoginModule(this)).inject(this);
+        appComponent.newLoginComponent(new LoginModule(this)).inject(this);
     }
 
     /**
@@ -110,7 +109,6 @@ public class SignInActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void setGoogleSignInFailed() {
-// Google Sign In failed
         LogHelper.printLogMsg("Google Sign In failed.");
     }
 

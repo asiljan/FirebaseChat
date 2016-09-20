@@ -34,7 +34,7 @@ public class LoginPresenterImpl implements ILoginPresenter, LoginListener {
 
     @Override
     public void firebaseAuth(Intent data, int reqCode, Activity activity) {
-        mLoginInteractor.processFirebaseAuth(data, reqCode, activity);
+        mLoginInteractor.processFirebaseAuth(data, reqCode, activity, this);
     }
 
 

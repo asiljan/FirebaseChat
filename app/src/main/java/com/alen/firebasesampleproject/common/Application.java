@@ -3,6 +3,7 @@ package com.alen.firebasesampleproject.common;
 import com.alen.firebasesampleproject.data.models.UserModel;
 import com.alen.firebasesampleproject.data.models.UserProfile;
 import com.alen.firebasesampleproject.di.components.AppComponent;
+import com.alen.firebasesampleproject.di.components.DaggerAppComponent;
 import com.alen.firebasesampleproject.di.modules.AppModule;
 
 /**
@@ -26,7 +27,6 @@ public class Application extends android.app.Application {
                 .builder()
                 .appModule(new AppModule(getInstance()))
                 .build();
-
     }
 
     public static Application getInstance() {

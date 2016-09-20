@@ -10,9 +10,8 @@ import dagger.Subcomponent;
  * Created by alensiljan on 19/09/16.
  */
 @ActivityScope
-@Subcomponent(
-        modules = LoginModule.class
-)
+@Subcomponent(modules = LoginModule.class)
 public interface LoginComponent {
+
     void inject(SignInActivity signInActivity);
 }

@@ -1,7 +1,9 @@
 package com.alen.firebasesampleproject.di.modules;
 
 import com.alen.firebasesampleproject.di.scopes.ActivityScope;
+import com.alen.firebasesampleproject.mvp.interactors.ILoginInteractor;
 import com.alen.firebasesampleproject.mvp.interactors.impl.LoginInteractorImpl;
+import com.alen.firebasesampleproject.mvp.presenters.ILoginPresenter;
 import com.alen.firebasesampleproject.mvp.presenters.impl.LoginPresenterImpl;
 import com.alen.firebasesampleproject.mvp.views.ILoginView;
 
@@ -28,14 +30,14 @@ public class LoginModule {
 
     @ActivityScope
     @Provides
-    public LoginPresenterImpl provideLoginPresenter(LoginPresenterImpl loginPresenter) {
-        return loginPresenter;
+    public ILoginPresenter provideLoginPresenter(LoginPresenterImpl presenter) {
+        return presenter;
     }
 
     @ActivityScope
     @Provides
-    public LoginInteractorImpl provideLoginInteractor(LoginInteractorImpl loginInteractor) {
-        return loginInteractor;
+    public ILoginInteractor provideLoginInteractor(LoginInteractorImpl interactor) {
+        return interactor;
     }
 
 }

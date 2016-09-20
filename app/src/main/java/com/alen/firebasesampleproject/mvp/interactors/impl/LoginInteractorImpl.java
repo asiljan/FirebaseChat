@@ -28,8 +28,7 @@ public class LoginInteractorImpl implements ILoginInteractor {
     private FirebaseAuth mFirebaseAuth;
 
     @Inject
-    public LoginInteractorImpl(LoginListener mLoginListener, FirebaseAuth mFirebaseAuth) {
-        this.mLoginListener = mLoginListener;
+    public LoginInteractorImpl(FirebaseAuth mFirebaseAuth) {
         this.mFirebaseAuth = mFirebaseAuth;
     }
 
@@ -39,7 +38,8 @@ public class LoginInteractorImpl implements ILoginInteractor {
     }
 
     @Override
-    public void processFirebaseAuth(Intent data, int requestCode, Activity activity) {
+    public void processFirebaseAuth(Intent data, int requestCode, Activity activity, LoginListener loginListener) {
+        this.mLoginListener = loginListener;
         if (requestCode == SignInActivity.RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             if (result.isSuccess()) {
