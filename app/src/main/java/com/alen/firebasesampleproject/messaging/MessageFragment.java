@@ -156,9 +156,6 @@ public class MessageFragment extends Fragment {
                             mUserModel.getUser());
                     mDatabaseReference.child(MESSAGES_CHILD).push().setValue(message);
 
-                    FCMHelper.sendNotificationToUser(mUserModel.getUser(), mUserProfile.getmUserName(),
-                            messageBox.getText().toString());
-
                     messageBox.setText("");
                 }
             }
