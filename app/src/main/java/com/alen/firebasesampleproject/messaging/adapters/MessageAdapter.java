@@ -74,8 +74,6 @@ public class MessageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mMessageWrapperList.clear();
         if (messages.size() > 0) {
             for (Message m : messages) {
-                LogHelper.printLogMsg("INFO? " + ownerUid + ", message Uid: " + m.getUid());
-                LogHelper.printLogMsg("INFO equals: " + ownerUid.equals(m.getUid()));
                 mMessageWrapperList.add(new MessageWrapper(m, ownerUid.equals(m.getUid())));
             }
             notifyItemInserted(getItemCount());

@@ -1,6 +1,5 @@
 package com.alen.firebasesampleproject.common;
 
-import com.alen.firebasesampleproject.common.helpers.LogHelper;
 import com.alen.firebasesampleproject.data.api.ApiService;
 import com.alen.firebasesampleproject.data.events.UserCredentialEvent;
 import com.alen.firebasesampleproject.data.models.UserModel;
@@ -38,20 +37,17 @@ public class RestManager {
      * @param mUserModel UserModel
      */
     public void sendUserCredentials(UserModel mUserModel) {
-        LogHelper.printLogMsg("INFO? " + mUserModel.getUser() + ", " + mUserModel.getToken());
         Call<Object> call = mApiService.sendUserCredentials(mUserModel);
 
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                LogHelper.printLogMsg("INFO onResponse? " + response.code() + ", " + response.message());
                 boolean success = response.isSuccessful() && response.code() == RESPONSE_CODE_OK;
                 EventBus.getDefaultInstance().post(new UserCredentialEvent(success));
             }
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                LogHelper.printLogMsg("INFO onFailure? " + t.getLocalizedMessage());
                 EventBus.getDefaultInstance().post(new UserCredentialEvent());
             }
         });
