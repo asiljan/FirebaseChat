@@ -36,7 +36,7 @@ public class MessageViewHolder extends BaseViewHolder {
     public void bindData(final Message message, final Context context, RequestManager glide) {
         mContext = context;
         mMessageTextView.setText(message.getText());
-        mMessageNameTextView.setText(buildTimeMessage(message.getName(), message.getmCreatedAt()));
+        mMessageNameTextView.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
 
         if (message.getPhotoUrl() == null) {
             mCircleImageView

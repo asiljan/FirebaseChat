@@ -1,14 +1,23 @@
 package com.alen.firebasesampleproject.data.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * Created by alensiljan on 30/08/16.
  */
-public class Message {
+public class Message implements Serializable {
 
+    @SerializedName("createdAt")
     private long mCreatedAt;
+    @SerializedName("text")
     private String mText;
+    @SerializedName("name")
     private String mName;
+    @SerializedName("photoUrl")
     private String mPhotoUrl;
+    @SerializedName("uid")
     private String mUid;
 
     public Message() {
@@ -22,11 +31,11 @@ public class Message {
         this.mUid = mUid;
     }
 
-    public Long getmCreatedAt() {
+    public long getCreatedAt() {
         return mCreatedAt;
     }
 
-    public void setmCreatedAt(long mCreatedAt) {
+    public void setCreatedAt(long mCreatedAt) {
         this.mCreatedAt = mCreatedAt;
     }
 
@@ -56,5 +65,9 @@ public class Message {
 
     public String getUid() {
         return mUid;
+    }
+
+    public void setUid(String mUid) {
+        this.mUid = mUid;
     }
 }

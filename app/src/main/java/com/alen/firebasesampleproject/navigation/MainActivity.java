@@ -132,11 +132,13 @@ public class MainActivity extends BaseActivity implements GoogleApiClient.OnConn
      * This method saves UserModel and UserProfile object into Application class.
      */
     private void storeUserProfile() {
+
         UserProfile userProfile = new UserProfile();
         userProfile.setmUserName(mUsername);
         userProfile.setmPhotoUrl(mPhotoUrl);
         mApplication.setmUserProfile(userProfile);
         mApplication.setmUserModel(mUserModel);
+        LogHelper.printLogMsg("INFO: " + userProfile.getmUserName() + ", " + mUserModel.getUser());
         initMessageFragment();
     }
 

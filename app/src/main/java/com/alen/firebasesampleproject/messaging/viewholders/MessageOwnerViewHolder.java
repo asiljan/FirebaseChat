@@ -35,7 +35,7 @@ public class MessageOwnerViewHolder extends BaseViewHolder {
         //implement own logic for binding
         mContext = context;
         mMessageText.setText(message.getText());
-        mMessageDeliverTime.setText(buildTimeMessage(message.getName(), message.getmCreatedAt()));
+        mMessageDeliverTime.setText(buildTimeMessage(message.getName(), message.getCreatedAt()));
 
         if (message.getPhotoUrl() == null) {
             mCircleImageView

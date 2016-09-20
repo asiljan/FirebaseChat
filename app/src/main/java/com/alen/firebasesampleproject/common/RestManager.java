@@ -38,6 +38,7 @@ public class RestManager {
      * @param mUserModel UserModel
      */
     public void sendUserCredentials(UserModel mUserModel) {
+        LogHelper.printLogMsg("INFO? " + mUserModel.getUser() + ", " + mUserModel.getToken());
         Call<Object> call = mApiService.sendUserCredentials(mUserModel);
 
         call.enqueue(new Callback<Object>() {
@@ -50,7 +51,7 @@ public class RestManager {
 
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
-                LogHelper.printLogMsg("INFO onFailure");
+                LogHelper.printLogMsg("INFO onFailure? " + t.getLocalizedMessage());
                 EventBus.getDefaultInstance().post(new UserCredentialEvent());
             }
         });

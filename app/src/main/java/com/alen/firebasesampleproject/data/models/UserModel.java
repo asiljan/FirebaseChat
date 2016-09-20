@@ -1,11 +1,17 @@
 package com.alen.firebasesampleproject.data.models;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
 /**
  * Created by alensiljan on 31/08/16.
  */
-public class UserModel {
+public class UserModel implements Serializable {
 
+    @SerializedName("user")
     private String mUser;
+    @SerializedName("token")
     private String mToken;
 
     public UserModel(String uUid, String mToken) {
