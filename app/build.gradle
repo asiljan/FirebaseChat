@@ -16,12 +16,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField 'String', 'URL_ENDPOINT', '"http://192.168.5.16:3000"'
+            buildConfigField 'String', 'URL_ENDPOINT', '"https://friendly-chat.herokuapp.com"'
         }
 
         develop {
             initWith debug
-            buildConfigField 'String', 'URL_ENDPOINT', '"http://192.168.5.16:3000"'
+            buildConfigField 'String', 'URL_ENDPOINT', '"http://192.168.5.12:3000"'
+        }
+
+        staging {
+            initWith debug
+            buildConfigField 'String', 'URL_ENDPOINT', '"https://friendly-chat.herokuapp.com"'
         }
     }
 }
