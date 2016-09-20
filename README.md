@@ -1,6 +1,6 @@
 # Firebase Chat
 
-A simple mobile chat implemented using Firebase. Project was developed in Android Studio 2. Currently, application supports sign in with Google.
+A simple mobile chat implemented using Firebase. Project was developed in Android Studio 2. Currently, application supports sign in with Google. Currently, the application is using Heroku cloud platform for server. If you want to setup a local server, please look at [Local server](#local-server) section.
 
 ## Screenshots
 
